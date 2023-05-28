@@ -1,16 +1,25 @@
-
+import { Link } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
-import stylesUrl from "~/styles/index.css";
+import styleUrl from "~/styles/index.css";
 
-export const links: LinksFunction = () => [
-    { rel: "stylesheet", href: stylesUrl }
-];
+export const links: LinksFunction = () => {
+    return [{ rel: "stylesheet", href: styleUrl }];
+};
 
 export default function IndexRoute() {
     return (
-        <>
-            <h1>Meow meow nigga!</h1>
-        </>
+        <div className="container">
+            <div className="content">
+                <h1>Remix <span>Jokes</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="jokes">Read jokes</Link>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     );
 }
