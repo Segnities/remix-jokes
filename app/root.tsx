@@ -1,12 +1,7 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
+  LiveReload, Outlet
 } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
@@ -19,13 +14,10 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <Meta />
-        <Links />
+        <title>Remix is funny?</title>
       </head>
       <body>
         <Outlet />
-        <ScrollRestoration />
-        <Scripts />
         <LiveReload />
       </body>
     </html>
