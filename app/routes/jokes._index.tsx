@@ -1,9 +1,10 @@
 import { Outlet } from "@remix-run/react";
 
-export default function JokesRoute() {
+export default function JokesIndexRoute() {
     return (
         <div>
-            <h1>J🤪KES</h1>
+            <p>Here are your Jokes!</p>
+            <p>I was wondering why the frisbee was getting bigger, then it hit me</p>
             <Outlet />
         </div>
     )
