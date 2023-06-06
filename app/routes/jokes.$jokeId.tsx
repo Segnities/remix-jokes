@@ -16,7 +16,7 @@ export const loader = async ({params}: LoaderArgs) => {
         }
     });
 
-    if(!joke) {
+    if (!joke) {
         throw new Error('Joke not found!');
     }
 
@@ -31,7 +31,7 @@ export default function JokeRoute() {
         <section>
             <h3>Here is our hillarious joke</h3>
             <p>{joke?.content}</p>
-                <Link to=".">"{joke.name}" Permalink</Link>
+            <Link to=".">"{joke.name}" Permalink</Link>
         </section>
-    )
+    );
 }
