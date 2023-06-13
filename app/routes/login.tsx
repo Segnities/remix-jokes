@@ -1,11 +1,11 @@
-import type { ActionArgs, LinksFunction } from "@remix-run/node";
-import { Link, useActionData, useSearchParams } from "@remix-run/react";
+import type {ActionArgs, LinksFunction} from "@remix-run/node";
+import {Link, useActionData, useSearchParams} from "@remix-run/react";
 
 import styleUrl from "~/styles/login.css";
 
-import { badRequest } from "utils/request.server";
-import { db } from "utils/db.server";
-import { login } from "utils/session.server";
+import {badRequest} from "utils/request.server";
+import {db} from "utils/db.server";
+import {login, createUserSession} from "utils/session.server";
 
 const validateUsername = (username: string) => {
     if (username.length < 3) {
@@ -30,11 +30,11 @@ const validateUrl = (url: string) => {
 
 export const links: LinksFunction = () => {
     return [
-        { rel: 'stylesheet', href: styleUrl },
+        {rel: 'stylesheet', href: styleUrl},
     ]
 };
 
-export const action = async ({ request }: ActionArgs) => {
+export const action = async ({request}: ActionArgs) => {
     const form = await request.formData();
     const loginType = form.get("loginType");
     const password = form.get("password");
@@ -53,7 +53,7 @@ export const action = async ({ request }: ActionArgs) => {
         });
     }
 
-    const fields = { loginType, password, username };
+    const fields = {loginType, password, username};
     const fieldErrors = {
         username: validateUsername(username),
         password: validatePassword(password),
@@ -69,26 +69,21 @@ export const action = async ({ request }: ActionArgs) => {
 
     switch (loginType) {
         case "login": {
-            const user = await  ({ username, password });
-            console.log({ user });
+            const user = await login({username, password});
+            console.log({user});
             if (!user) {
                 return badRequest({
                     fieldErrors: null,
                     fields,
                     formError: "Username/Password combination incorrect",
                 });
-
             }
-            return badRequest({
-                fieldErrors: null,
-                fields,
-                formError: "Not implemented",
-            });
+            return createUserSession(user.id, redirectTo);
+        }
 
-        };
         case "register": {
             const userExists = await db.user.findFirst({
-                where: { username }
+                where: {username}
             });
             if (userExists) {
                 return badRequest({
@@ -97,7 +92,8 @@ export const action = async ({ request }: ActionArgs) => {
                     formError: `User with username ${username} already exists.`,
                 });
             }
-        };
+        }
+
         default: {
             return badRequest({
                 fieldErrors: null,
