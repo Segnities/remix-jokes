@@ -69,7 +69,7 @@ export async function action({ request }: ActionArgs) {
 
 }
 
-export default function NewJokeRoute() {
+export default function NewJoke() {
     const actionData = useActionData<typeof action>();
     return (
         <div>
