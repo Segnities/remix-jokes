@@ -1,10 +1,15 @@
-import {json, LoaderArgs} from "@remix-run/node";
-import {useLoaderData} from "@remix-run/react";
-import {Link} from "@remix-run/react";
+import { json } from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
 
-import {db} from "../../utils/db.server";
+import {
+    Link,
+    useLoaderData,
+    useParams
+} from "@remix-run/react";
 
-export const loader = async ({params}: LoaderArgs) => {
+import { db } from "utils/db.server";
+
+export const loader = async ({ params }: LoaderArgs) => {
     console.log(params)
     const joke = await db.joke.findUnique({
         where: {
@@ -25,8 +30,8 @@ export const loader = async ({params}: LoaderArgs) => {
     });
 }
 
-export default function JokeRoute() {
-    const {joke} = useLoaderData<typeof loader>();
+export default function UniqueJoke() {
+    const { joke } = useLoaderData<typeof loader>();
     return (
         <section>
             <h3>Here is our hillarious joke</h3>
@@ -34,4 +39,14 @@ export default function JokeRoute() {
             <Link to=".">"{joke.name}" Permalink</Link>
         </section>
     );
+}
+
+export function ErrorBoundary() {
+    const { jokeId } = useParams();
+
+    return (
+        <div className="error-container">
+            There was an error loading joke by id "{jokeId}". Sorry 😭! 
+        </div>
+    )
 }
