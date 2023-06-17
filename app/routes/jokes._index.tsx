@@ -20,7 +20,7 @@ export const loader = async () => {
     });
 }
 
-export default function JokesIndexRoute() {
+export default function JokesWrapper() {
     const {randomJoke} = useLoaderData<typeof loader>();
     return (
         <section>
