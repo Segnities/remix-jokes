@@ -13,10 +13,10 @@ import styleUrl from "~/styles/login.css";
 
 import { badRequest } from "utils/request.server";
 import { db } from "utils/db.server";
-import { 
-    login, 
+import {
+    login,
     createUserSession,
-    register 
+    register
 } from "utils/session.server";
 
 const validateUsername = (username: string) => {
@@ -106,9 +106,9 @@ export const action = async ({ request }: ActionArgs) => {
             }
             const user = await register({ username, password });
 
-            if(!user) {
+            if (!user) {
                 return badRequest({
-                    fieldsErrors: null,
+                    fieldErrors: null,
                     fields,
                     formError: "Something went wrong trying to create a new user.",
                 });
