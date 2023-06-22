@@ -1,6 +1,7 @@
 import type {
     ActionArgs,
-    LinksFunction
+    LinksFunction,
+    V2_MetaFunction
 } from "@remix-run/node";
 
 import {
@@ -45,6 +46,16 @@ export const links: LinksFunction = () => {
         { rel: 'stylesheet', href: styleUrl },
     ]
 };
+
+export const meta:V2_MetaFunction = () => {
+    const description = "Login to submit your own jokes to Remix Jokes!";
+
+    return [
+        {name: "description", content: description},
+        {name: "twitter:description", content: description},
+        {title: "Remix Jokes | Login"}
+    ]
+}
 
 export const action = async ({ request }: ActionArgs) => {
     const form = await request.formData();
