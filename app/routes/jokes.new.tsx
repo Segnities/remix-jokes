@@ -3,9 +3,8 @@ import { json, redirect } from "@remix-run/node";
 import { Link, isRouteErrorResponse, useActionData, useRouteError } from "@remix-run/react";
 
 import { db } from "../../utils/db.server";
-import { getUserId, requireUserId } from "../../utils/session.server";
 import { badRequest } from "../../utils/request.server";
-import Login from "./login";
+import { getUserId, requireUserId } from "../../utils/session.server";
 
 
 function validateJokeName(name: string) {
