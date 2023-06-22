@@ -3,6 +3,7 @@ import {
   LiveReload,
   Outlet,
   useRouteError,
+  isRouteErrorResponse
 } from "@remix-run/react";
 
 import type { LinksFunction } from "@remix-run/node";
@@ -49,7 +50,18 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
   const errorMessage = error instanceof Error ? error.message : "Unknown error";
-  
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <Document title={`${error.status} ${error.statusText}`}>
+        <div className="error-container">
+          <h1>App Error</h1>
+          <pre>{errorMessage}</pre>
+        </div>
+      </Document>
+    )
+  }
+
   return (
     <Document title="Uh-oh!">
       <div className="error-container">

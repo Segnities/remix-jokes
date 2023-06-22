@@ -1,4 +1,10 @@
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import {
+    Link,
+    Outlet,
+    isRouteErrorResponse,
+    useLoaderData,
+    useRouteError
+} from "@remix-run/react";
 
 import { db } from "../../utils/db.server";
 import { json } from "@remix-run/node";
@@ -12,7 +18,9 @@ export const loader = async () => {
     });
 
     if (!randomJoke) {
-        throw new Error("No Jokes found");
+        throw new Response("No random joke found", {
+            status: 404
+        });
     }
 
     return json({
@@ -33,6 +41,21 @@ export default function JokesWrapper() {
 }
 
 export function ErrorBoundary() {
+    const error = useRouteError();
+
+    if(isRouteErrorResponse(error)) {
+        return (
+            <div className="error-container">
+                <h3>Oopsies! There no jokes to display.</h3>
+                <p>{error.data.message}</p>
+                <Link to="new">You can add one now</Link>
+            </div>
+        ) 
+    
+    } 
+
+    
+
     return (
         <div className="error-container">
             I did a whoopsies...

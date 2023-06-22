@@ -83,19 +83,19 @@ export async function requireUserId(request: Request, redirectTo: string = new U
 }
 
 
-export async function getUser(request:Request) {
+export async function getUser(request: Request) {
     const userId = await getUserId(request);
 
     if (typeof userId !== "string") {
         return null;
-    } 
+    }
 
     const user = await db.user.findUnique({
-        select: {id: true, username: true},
-        where: {id: userId}
+        select: { id: true, username: true },
+        where: { id: userId }
     });
 
-    if(!user) {
+    if (!user) {
         throw logout(request);
     }
     return user;
@@ -116,7 +116,7 @@ export async function register({
 }: LoginForm) {
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await db.user.create({
-        data: {passwordHash, username}
+        data: { passwordHash, username }
     });
-    return {id: user.id, username: username};
+    return { id: user.id, username: username };
 }
