@@ -1,4 +1,4 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 
 import {
@@ -11,6 +11,23 @@ import {
 
 import { db } from "utils/db.server";
 import { getUserId, requireUserId } from "utils/session.server";
+
+export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
+    const { title, description } = data ?
+        {
+            description: `Enjoy your "${data.joke.name}" joke and much more`,
+            title: `${data.joke.name} joke`,
+        } :
+        {
+            description: "Not Found",
+            title: "Not Found"
+        };
+    return [
+        { name: "description", content: description },
+        { name: "twitter:description", content: description },
+        { title }
+    ];
+}
 
 export const action = async ({ params, request }: ActionArgs) => {
     const formData = await request.formData();
