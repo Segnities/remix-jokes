@@ -1,4 +1,4 @@
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 import type { LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
@@ -37,11 +37,11 @@ export default function Jokes() {
                         data.user ? (
                             <div className="user-info">
                                 <span>{`Hi ${data.user.username}`}</span>
-                                <form action="/logout" method="post">
+                                <Form action="/logout" method="post">
                                     <button type="submit" className="button">
                                         Logout
                                     </button>
-                                </form>
+                                </Form>
                             </div>
                         ) : (
                             <Link to="/login" className="button" role="button">Login</Link>

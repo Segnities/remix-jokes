@@ -3,10 +3,11 @@ import { json, redirect } from "@remix-run/node";
 
 import {
     Link,
+    Form,
     isRouteErrorResponse,
     useLoaderData,
     useRouteError,
-    useParams
+    useParams,
 } from "@remix-run/react";
 
 import { db } from "utils/db.server";
@@ -97,7 +98,7 @@ export default function UniqueJoke() {
             <p>{joke?.content}</p>
             {
                 isOwner ? (
-                    <form method="post">
+                    <Form method="post">
                         <button
                             name="intent"
                             type="submit"
@@ -106,7 +107,7 @@ export default function UniqueJoke() {
                         >
                             Delete
                         </button>
-                    </form>
+                    </Form>
                 ) : null
             }
             <Link to=".">"{joke.name}" Permalink</Link>
