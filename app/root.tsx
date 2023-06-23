@@ -71,6 +71,8 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
   const errorMessage = error instanceof Error ? error.message : "Unknown error";
+  console.error(error);
+  
 
   if (isRouteErrorResponse(error)) {
     return (
