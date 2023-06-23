@@ -7,6 +7,7 @@ import {
   useRouteError,
   isRouteErrorResponse,
   Meta,
+  Scripts,
 } from "@remix-run/react";
 
 import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
@@ -52,6 +53,7 @@ function Document({
       <Links />
       <body>
         {children}
+        <Scripts/>
         <LiveReload />
       </body>
     </html>
