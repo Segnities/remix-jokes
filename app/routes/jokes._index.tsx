@@ -42,6 +42,7 @@ export default function JokesWrapper() {
 
 export function ErrorBoundary() {
     const error = useRouteError();
+    console.error(error);
 
     if(isRouteErrorResponse(error)) {
         return (

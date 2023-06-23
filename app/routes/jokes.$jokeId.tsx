@@ -109,7 +109,6 @@ export default function UniqueJoke() {
                     </form>
                 ) : null
             }
-
             <Link to=".">"{joke.name}" Permalink</Link>
         </section>
     );
@@ -118,6 +117,7 @@ export default function UniqueJoke() {
 export function ErrorBoundary() {
     const { jokeId } = useParams();
     const error = useRouteError();
+    console.error(error);
 
     if (isRouteErrorResponse(error)) {
         if (error.status === 400) {

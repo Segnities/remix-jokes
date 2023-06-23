@@ -7,6 +7,7 @@ import {
   useRouteError,
   isRouteErrorResponse,
   Meta,
+  Scripts,
 } from "@remix-run/react";
 
 import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
@@ -52,6 +53,7 @@ function Document({
       <Links />
       <body>
         {children}
+        <Scripts/>
         <LiveReload />
       </body>
     </html>
@@ -69,6 +71,8 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
   const errorMessage = error instanceof Error ? error.message : "Unknown error";
+  console.error(error);
+  
 
   if (isRouteErrorResponse(error)) {
     return (
