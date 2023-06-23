@@ -18,6 +18,9 @@ export default function IndexRoute() {
                     <li>
                         <Link to="jokes">Read jokes</Link>
                     </li>
+                    <li>
+                        <Link reloadDocument to="/jokes.rss">RSS</Link>
+                    </li>
                 </ul>
             </nav>
         </div>
