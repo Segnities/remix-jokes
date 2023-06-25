@@ -10,6 +10,8 @@ import {
     useParams,
 } from "@remix-run/react";
 
+import { JokeDisplay } from "~/components/joke";
+
 import { db } from "utils/db.server";
 import { getUserId, requireUserId } from "utils/session.server";
 
@@ -93,25 +95,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
 export default function UniqueJoke() {
     const { joke, isOwner } = useLoaderData<typeof loader>();
     return (
-        <section>
-            <h3>Here is our hillarious joke</h3>
-            <p>{joke?.content}</p>
-            {
-                isOwner ? (
-                    <Form method="post">
-                        <button
-                            name="intent"
-                            type="submit"
-                            value="delete"
-                            className="button"
-                        >
-                            Delete
-                        </button>
-                    </Form>
-                ) : null
-            }
-            <Link to=".">"{joke.name}" Permalink</Link>
-        </section>
+        <JokeDisplay isOwner={isOwner} joke={joke}/>
     );
 }
 
